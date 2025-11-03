@@ -1,35 +1,37 @@
-name: Continous Integration
+name: Continuous Integration  # Fixed typo: "Continous" → "Continuous"
+
 on: [push]
+
 jobs:
   compile:
-   runs-on: ubuntu-latest
-   steps:
-     - name: Cache Node Modules
-       id: cache
-       uses: actions/cache@v2
-       with:
-         path: node_modules
-         key: node-modules-cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Node Modules
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-modules-cache
 
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout  
+        uses: actions/checkout@v1
    
-    - name: Setup Node
-      uses: actions/setup-node@v1
-      with: 
-        node-version: 16.x
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with: 
+          node-version: 16.x
     
-    - name: Install Deps
-      run: cd backend && npm i
+      - name: Install Deps
+        run: cd backend && npm i
 
-    - name: Build
-      run: cd backend && npm run build
+      - name: Build
+        run: cd backend && npm run build
 
-    - name: Generate Artifact
-      run: cd backend/build && zip -r artifact.zip
+      - name: Generate Artifact
+        run: cd backend/build && zip -r artifact.zip .  
 
-    - name: Store Artifact
-      uses: actions/upload-arifact@v2
-      with:
-        name: backend-artifact
-        path: backend/build/artifact.zip
+      - name: Store Artifact
+        uses: actions/upload-artifact@v2  
+        with:
+          name: backend-artifact
+          path: backend/build/artifact.zip
