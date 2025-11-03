@@ -2,7 +2,7 @@ name: Continous Integration
 on: [push]
 jobs:
   compile:
-   runs_on: ubuntu-latest
+   runs-on: ubuntu-latest
    steps:
      - run: cd backend
      - run: npm i 
